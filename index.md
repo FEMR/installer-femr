@@ -10,7 +10,7 @@ You can access a deployed version of our installers [here](https://d2ttvayo6q5ur
 1. [ Set-up/Onboarding Instructions ](#install)
 2. [ User Instructions ](#user)
 3. [ Contact Us/Leave Feedback ](#contact)
-4.. [ Privacy Policy and EULA](#priv)
+4. [ Privacy Policy and EULA](#priv)
 
 <a name="install"></a>
 ## Set-up/Onboarding Instructions
@@ -21,7 +21,7 @@ You can access a deployed version of our installers [here](https://d2ttvayo6q5ur
 2. For the Windows installer, download [InstallAnywhere](https://www.revenera.com/install/products/installanywhere).
 
 ### MacOS 
-1. ```./macOS-x64/build-macos-x64.sh [APPLICATION_NAME] [APPLICATION_VERSION]```
+1. Run the command ```./macOS-x64/build-macos-x64.sh [APPLICATION_NAME] [APPLICATION_VERSION]``` to compile the files.
 2. Navigate to the `/macOS-x64/target/pkg` directory. It should now contain a .pkg installer that can be double clicked inside Finder.
 3. Follow the steps on the installer to install the software.
 4. Once the installer has finished running, navigate to your `Applications` folder. There should now be a `fEMR` application that can be double clicked and ran.
