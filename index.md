@@ -44,4 +44,4 @@ If you find any issues with the installers or have any other feedback you'd like
 
 <a name="priv"></a>
 ## EULA and Privacy Policy
-You can find a copy of our EULA and Privacy Policy [here](https://github.com/FEMR/femr/blob/master/LICENSE).
+You can find a copy of our EULA and Privacy Policy [here](https://github.com/CPSECapstone/installer-femr/blob/gh-pages/LICENSE).
