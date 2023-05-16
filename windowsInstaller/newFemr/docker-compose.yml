@@ -29,7 +29,7 @@ services:
     expose:
       - "9000"
     volumes:
-      - ./femr/conf:/home/femrapp/conf
+      - ./femr/conf:/usr/src/app/conf
     environment:
       DB_URL: "jdbc:mysql://db:3306/femr_db?characterEncoding=UTF-8&useSSL=false"
       DB_USER: "root"
