@@ -50,7 +50,7 @@ To compile the installer via advanced installer, create a new project with the f
 ## Other Repositories
 
 - [super-femr](https://github.com/CPSECapstone/super-femr) - The latest version of off-chain femr
-- [AWS](https://github.com/henrypigg/fibula-aws) - AWS code for CI pipeline and API
+- [AWS](https://github.com/fEMR/fibula-aws) - AWS code for CI pipeline and API
 - [Frontend](https://github.com/CPSECapstone/self-enrollment-frontend) - Frontend React code for self-enrollment webpage
 
 ## Uploading a release
