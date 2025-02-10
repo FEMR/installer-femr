@@ -37,7 +37,7 @@ sed -i '' -e 's/__PASSWORD__/'${PASSWORD}'/g' /var/femr/docker-compose.yml
 #Load docker images
 cd /var/__PRODUCT__/
 /usr/local/bin/docker load -i femr.tar
-/usr/local/bin/docker load -i mysql:5.7.tar
+/usr/local/bin/docker load -i mysql:9.1.0.tar
 /usr/local/bin/docker load -i dnsmasq.tar
 
 echo "Post installation process finished"

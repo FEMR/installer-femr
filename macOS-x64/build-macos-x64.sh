@@ -10,8 +10,8 @@ VERSION=${2}
 DATE=`date +%Y-%m-%d`
 TIME=`date +%H:%M:%S`
 LOG_PREFIX="[$DATE $TIME]"
-SQL_CONTAINER="mysql:5.7"
-FEMR_CONTAINER="waldenhillegass/super-femr:latest"
+SQL_CONTAINER="mysql:9.1.0"
+FEMR_CONTAINER="teamfemrdev/teamfemr:latest"
 DNS_CONTATINER="strm/dnsmasq"
 
 function printSignature() {
@@ -101,7 +101,7 @@ pull_and_save_docker_images() {
     docker pull $FEMR_CONTAINER
     docker pull $DNS_CONTATINER
     log_info "Saving docker images.."
-    docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:5.7.tar"
+    docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:9.1.0.tar"
     docker save $FEMR_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/femr.tar"
     docker save $DNS_CONTATINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
     log_info "Completed moving docker images"
@@ -157,7 +157,6 @@ copyBuildDirectory() {
 
 function buildPackage() {
     log_info "Application installer package building started.(1/3)"
-    echo "here"
     pkgbuild --identifier "org.${PRODUCT}.${VERSION}" \
     --version "${VERSION}" \
     --scripts "${TARGET_DIRECTORY}/darwin/scripts" \
@@ -208,7 +207,7 @@ function createUninstaller(){
 
 function compileLoginScript(){
     pyinstaller --onefile darwin/Resources/login.py
-    mv dist/login darwin/scripts
+    mv -f dist/login darwin/scripts
     rm -r dist/
     rm -r build/
     rm login.spec

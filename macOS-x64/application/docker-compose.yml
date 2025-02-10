@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     platform: linux/amd64
-    image: mysql:5.7
+    image: mysql:9.1.0
     restart: always
     environment:
       MYSQL_DATABASE: "femr_db"
@@ -18,7 +18,7 @@ services:
 
   femr:
     platform: linux/arm64/v8
-    image: waldenhillegass/super-femr:latest
+    image: teamfemrdev/teamfemr:latest
     links:
       - db:mysql
     depends_on:
