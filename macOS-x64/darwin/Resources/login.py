@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 import requests
 
 def verify_password(user, password):
-    r = requests.put("https://vgyc6fujod.execute-api.us-east-1.amazonaws.com/prod/login", json={"email": user, "password": password})
+    r = requests.put("https://qetcdnt6vd.execute-api.us-east-2.amazonaws.com/prod/login", json={"email": user, "password": password})
     if (r.json()['accepted'] == "True"):
         return True
     else:
