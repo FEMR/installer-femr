@@ -206,11 +206,13 @@ function createUninstaller(){
 }
 
 function compileLoginScript(){
-    pyinstaller --onefile darwin/Resources/login.py
-    mv -f dist/login darwin/scripts
-    rm -r dist/
-    rm -r build/
-    rm login.spec
+    PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
+    python3 -m PyInstaller --onefile --clean "${SCRIPTPATH}/darwin/Resources/login.py"
+    mv -f "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
+    rm -rf dist/
+    rm -rf build/
+    rm -f login.spec
+
 }
 
 #Pre-requisites
@@ -226,8 +228,8 @@ command -v ballerina >/dev/null 2>&1 || {
 #Main script
 log_info "Installer generating process started."
 
-compileLoginScript
 copyDarwinDirectory
+compileLoginScript
 copyBuildDirectory
 pull_and_save_docker_images
 createUninstaller
