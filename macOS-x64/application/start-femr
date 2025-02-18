@@ -14,8 +14,9 @@ d88P\"  888        8888b   d8888 888   Y88b
 echo "Starting fEMR... This might take a second"
 echo "Ctrol+C in this window to shutdown the fEMR server"
 
+SCRIPT_DIR=__SCRIPT_DIR__
 
-cd /var/femr
+cd "${SCRIPT_DIR}"
 open -g -j -a Docker.app
 sleep 15
-docker-compose up
+docker compose up --build
