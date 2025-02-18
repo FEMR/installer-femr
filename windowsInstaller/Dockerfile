@@ -15,7 +15,7 @@ ENV SBT_VERSION 1.1.5
 ENV PROJECT_HOME /usr/src
 
 #database variables
-ENV DB_URL "jdbc:mysql://localhost:3306/femr_db?characterEncoding=UTF-8&useSSL=false"
+ENV DB_URL "jdbc:mysql://db:3306/femr_db?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true"
 ENV DB_USER "username"
 ENV DB_PASS "password"
 
