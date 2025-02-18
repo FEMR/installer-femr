@@ -145,7 +145,10 @@ copyBuildDirectory() {
     mkdir -p "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     cp -a "$SCRIPTPATH"/application/. "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
-
+    
+    #Changes the script dir variable to the target path. This used to start the docker compose later.
+    sed -i '' -e 's#__SCRIPT_DIR__#'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
+    
     rm -rf "${TARGET_DIRECTORY}/package"
     mkdir -p "${TARGET_DIRECTORY}/package"
     chmod -R 755 "${TARGET_DIRECTORY}/package"
@@ -206,9 +209,10 @@ function createUninstaller(){
 }
 
 function compileLoginScript(){
+    echo "Compiling login script begin"
     PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
-    python3 -m PyInstaller --onefile --clean "${SCRIPTPATH}/darwin/Resources/login.py"
-    mv -f "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
+    pyinstaller --onefile --clean --hidden-import PySimpleGui "${SCRIPTPATH}/darwin/Resources/login.py"
+    mv -f -v "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
     rm -rf dist/
     rm -rf build/
     rm -f login.spec
