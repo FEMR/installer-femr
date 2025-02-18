@@ -3,12 +3,12 @@
 
 # find ../../../ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 open -g -j -a Docker.app
-continue_installer=$(./login | tail -n 1)
+# continue_installer=$(./login | tail -n 1)
 
-if  [[ $continue_installer == "closed" ]]; then
-    echo "stopping install and closing"
-    killall -9 Installer
-fi
+# if  [[ $continue_installer == "closed" ]] && [[$continue_installer != ""]]; then
+#     echo "stopping install and closing"
+#     killall -9 Installer
+# fi
 
 if  [[ $arch == arm* ]]; then
     echo "arm"
