@@ -208,16 +208,16 @@ function createUninstaller(){
     sed -i '' -e "s/__PRODUCT__/${PRODUCT}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
 }
 
-function compileLoginScript(){
-    echo "Compiling login script begin"
-    PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
-    pyinstaller --onefile --clean --hidden-import PySimpleGui "${SCRIPTPATH}/darwin/Resources/login.py"
-    mv -f -v "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
-    rm -rf dist/
-    rm -rf build/
-    rm -f login.spec
+# function compileLoginScript(){
+#     echo "Compiling login script begin"
+#     PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
+#     pyinstaller --onefile --clean --hidden-import PySimpleGui "${SCRIPTPATH}/darwin/Resources/login.py"
+#     mv -f -v "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
+#     rm -rf dist/
+#     rm -rf build/
+#     rm -f login.spec
 
-}
+# }
 
 #Pre-requisites
 command -v mvn -v >/dev/null 2>&1 || {
@@ -233,7 +233,6 @@ command -v ballerina >/dev/null 2>&1 || {
 log_info "Installer generating process started."
 
 copyDarwinDirectory
-compileLoginScript
 copyBuildDirectory
 pull_and_save_docker_images
 createUninstaller
