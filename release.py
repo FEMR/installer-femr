@@ -19,7 +19,8 @@ def main():
     s3 = boto3.client('s3')
 
     # Print the output of 'ls' command
-    subprocess.run(['ls ./..'], check=True)
+    subprocess.run(['ls', './..'], check=True)
+    subprocess.run(['ls', './macOS-x64/target'], check=True)
     '''
     s3.upload_file(
         f'./macOS-x64/target/pkg/femr-macos-installer-x64-{args.version}.pkg', 
