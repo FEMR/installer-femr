@@ -19,7 +19,7 @@ def main():
     s3 = boto3.client('s3')
 
     s3.upload_file(
-        f'macOS-x64/target/pkg/femr-macos-installer-x64-{args.version}.pkg', 
+        f'./macOS-x64/target/pkg/femr-macos-installer-x64-{args.version}.pkg', 
         BUCKET_NAME, 
         f'{args.version}/femr-x64-{args.version}.pkg'
     )
