@@ -16,14 +16,4 @@ jobs:
           python-version: "3.10"
           cache: "pip"
       - run: pip install -r requirements.txt
-
-      - name: Install Ballerina
-        run: |
-          curl -L https://dist.ballerina.io/downloads/ballerina-1.2.2-balerina-linux-x64.tar.gz | tar -xz
-          sudo mv bal /usr/local/bin
-
-      - name: Create working directory
-        run: mkdir -p /home/runner/work/installer-femr/installer-femr
-
-      - name: Move to working directory
-        run: cd /home/runner/work/installer-femr/installer-femr && python3 release.py --version 3.0.0
+      - run: python3 release.py --version 3.0.0
