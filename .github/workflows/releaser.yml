@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: ballerina-platform/setup-ballerina@v1
-        name: Install Ballerina
-        with:
-          version: 2201.3.2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
