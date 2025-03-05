@@ -100,10 +100,13 @@ pull_and_save_docker_images() {
     docker pull $SQL_CONTAINER
     docker pull $FEMR_CONTAINER
     docker pull $DNS_CONTATINER
-    log_info "Saving docker images.."
+    log_info "Saving docker images:"
     docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:9.1.0.tar"
+    log_info "Saved mysql:9.1.0.tar"
     docker save $FEMR_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/femr.tar"
+    log_info "Saved femr.tar"
     docker save $DNS_CONTATINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
+    log_info "Saved dnsmasq.tar"
     log_info "Completed moving docker images"
 }
 
