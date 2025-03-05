@@ -16,5 +16,9 @@ jobs:
           python-version: "3.10"
           cache: "pip"
       - run: pip install -r requirements.txt
-      - run: python release.py --version 3.0.0 #placeholder for now, should be updated to get version from femr repo
 
+      - name: Create working directory
+        run: mkdir -p /home/runner/work/installer-femr/installer-femr
+
+      - name: Move to working directory
+        run: cd /home/runner/work/installer-femr/installer-femr && python3 release.py --version 3.0.0
