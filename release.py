@@ -9,7 +9,6 @@ import subprocess
 BUCKET_NAME = 'fibula-femr-installer'
 
 def main():
-    print("Current directory:", os.getcwd())
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", required=True, help="version of the release")
     args = parser.parse_args()
