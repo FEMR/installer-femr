@@ -9,6 +9,7 @@ import subprocess
 BUCKET_NAME = 'fibula-femr-installer'
 
 def main():
+    print("Current directory:", os.getcwd())
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", required=True, help="version of the release")
     args = parser.parse_args()
@@ -18,7 +19,6 @@ def main():
 
     s3 = boto3.client('s3')
 
-    print("Current directory:", os.getcwd())
     s3.upload_file(
         f'macOS-x64/target/pkg/femr-macos-installer-x64-{args.version}.pkg', 
         BUCKET_NAME, 
