@@ -235,6 +235,8 @@ command -v ballerina >/dev/null 2>&1 || {
 #Main script
 log_info "Installer generating process started."
 log_info "Current directory: $(pwd)"
+log_info "Script directory: $SCRIPTPATH"
+log_info "Target directory: $TARGET_DIRECTORY"
 
 copyDarwinDirectory
 copyBuildDirectory
