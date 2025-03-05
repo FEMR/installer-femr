@@ -244,7 +244,7 @@ pull_and_save_docker_images
 createUninstaller
 createInstaller
 log_info "Listing current directory contents:"
-ls $TARGET_DIRECTORY
+ls $TARGET_DIRECTORY/pkg
 
 log_info "Installer generating process finished"
 exit 0
