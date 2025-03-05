@@ -6,11 +6,11 @@ import subprocess
 # CLI example
 # python3 release.py --version 1.0.0
 
-BUCKET_NAME = 'fibula-installer'
+BUCKET_NAME = 'fibula-femr-installer'
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", help="version of the release")
+    parser.add_argument("--version", required=True, help="version of the release")
     args = parser.parse_args()
 
     # build the mac installer

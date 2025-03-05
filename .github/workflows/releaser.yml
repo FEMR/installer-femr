@@ -1,0 +1,20 @@
+name: Push Installer to s3
+
+on:
+  push:
+    branches:
+      - karan_installer # Placeholder for now, should activate on release in femr repo
+
+jobs:
+  release:
+    name: Run release.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run release.py
+        run: python3 release.py --version 3.0.0 # Placeholder version for now
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
