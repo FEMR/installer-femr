@@ -12,7 +12,7 @@ TIME=`date +%H:%M:%S`
 LOG_PREFIX="[$DATE $TIME]"
 SQL_CONTAINER="docker.io/library/mysql:9.1.0"
 FEMR_CONTAINER="teamfemrdev/teamfemr:latest"
-DNS_CONTATINER="strm/dnsmasq"
+DNS_CONTATINER="strm/dnsmasq:latest"
 
 function printSignature() {
   cat "$SCRIPTPATH/utils/ascii_art.txt"
