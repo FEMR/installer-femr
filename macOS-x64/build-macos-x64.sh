@@ -128,14 +128,14 @@ copyBuildDirectory() {
     sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
     sed -i -e 's#__SCRIPTPATH__#'${SCRIPTPATH}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
 
-    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
-    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
 
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/Distribution"
 
-    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
-    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
+    sed -i -e 's#__VERSION__/'${VERSION}'#g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
+    sed -i -e 's#__PRODUCT__/'${PRODUCT}'#g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/Resources/"
 
     rm -rf "${TARGET_DIRECTORY}/darwinpkg"
@@ -204,8 +204,8 @@ function createInstaller() {
 
 function createUninstaller(){
     cp "$SCRIPTPATH/darwin/Resources/uninstall.sh" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}"
-    sed -i -e "s/__VERSION__/${VERSION}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
-    sed -i -e "s/__PRODUCT__/${PRODUCT}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
+    sed -i -e "s#__VERSION__#${VERSION}#g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
+    sed -i -e "s#__PRODUCT__#${PRODUCT}#g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
 }
 
 # function compileLoginScript(){
