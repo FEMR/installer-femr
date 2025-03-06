@@ -5,7 +5,7 @@
 open -g -j -a Docker.app
 continue_installer=$(./login | tail -n 1)
 
-if  [[ $continue_installer == "closed" ]] && [[$continue_installer != ""]]; then
+if  [ "$continue_installer" == "closed" ] && [ "$continue_installer" != "" ]; then
     echo "stopping install and closing"
     killall -9 Installer
 fi
