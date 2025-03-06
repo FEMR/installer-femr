@@ -10,9 +10,9 @@ VERSION=${2}
 DATE=`date +%Y-%m-%d`
 TIME=`date +%H:%M:%S`
 LOG_PREFIX="[$DATE $TIME]"
-SQL_CONTAINER="mysql:9.1.0"
+SQL_CONTAINER="docker.io/library/mysql:9.1.0"
 FEMR_CONTAINER="teamfemrdev/teamfemr:latest"
-DNS_CONTATINER="strm/dnsmasq"
+DNS_CONTAINER="strm/dnsmasq:latest"
 
 function printSignature() {
   cat "$SCRIPTPATH/utils/ascii_art.txt"
@@ -99,11 +99,11 @@ pull_and_save_docker_images() {
     log_info "Pulling docker images... If this fails, make sure Docker is running."
     docker pull $SQL_CONTAINER
     docker pull $FEMR_CONTAINER
-    docker pull $DNS_CONTATINER
-    log_info "Saving docker images.."
+    docker pull $DNS_CONTAINER
+    log_info "Saving docker images..."
     docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:9.1.0.tar"
     docker save $FEMR_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/femr.tar"
-    docker save $DNS_CONTATINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
+    docker save $DNS_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
     log_info "Completed moving docker images"
 }
 
@@ -116,26 +116,26 @@ copyDarwinDirectory(){
 }
 
 copyBuildDirectory() {
-    sed -i '' -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
-    sed -i '' -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
 
-    sed -i '' -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
-    sed -i '' -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
 
-    sed -i '' -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
-    sed -i '' -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
-    sed -i '' -e 's/__SCRIPTPATH__/'${SCRIPTPATH}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__SCRIPTPATH__#'${SCRIPTPATH}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
 
-    sed -i '' -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
-    sed -i '' -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
 
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/Distribution"
 
-    sed -i '' -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
-    sed -i '' -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
+    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
+    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}"/darwin/Resources/*.html
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/Resources/"
 
     rm -rf "${TARGET_DIRECTORY}/darwinpkg"
@@ -147,7 +147,7 @@ copyBuildDirectory() {
     chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     
     #Changes the script dir variable to the target path. This used to start the docker compose later.
-    sed -i '' -e 's#__SCRIPT_DIR__#'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
+    sed -i -e 's#__SCRIPT_DIR__#'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
     
     rm -rf "${TARGET_DIRECTORY}/package"
     mkdir -p "${TARGET_DIRECTORY}/package"
@@ -204,20 +204,9 @@ function createInstaller() {
 
 function createUninstaller(){
     cp "$SCRIPTPATH/darwin/Resources/uninstall.sh" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}"
-    sed -i '' -e "s/__VERSION__/${VERSION}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
-    sed -i '' -e "s/__PRODUCT__/${PRODUCT}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
+    sed -i -e "s/__VERSION__/${VERSION}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
+    sed -i -e "s/__PRODUCT__/${PRODUCT}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
 }
-
-# function compileLoginScript(){
-#     echo "Compiling login script begin"
-#     PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
-#     pyinstaller --onefile --clean --hidden-import PySimpleGui "${SCRIPTPATH}/darwin/Resources/login.py"
-#     mv -f -v "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
-#     rm -rf dist/
-#     rm -rf build/
-#     rm -f login.spec
-
-# }
 
 #Pre-requisites
 command -v mvn -v >/dev/null 2>&1 || {

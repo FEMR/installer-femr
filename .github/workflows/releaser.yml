@@ -1,0 +1,29 @@
+name: Push Installer to s3
+
+on:
+  push:
+    branches:
+      - karan_installer # Placeholder for now, should activate on release in femr repo
+
+jobs:
+  release:
+    name: Run release.py
+    runs-on: macos-13 # Have to use macos runner due to the use of pkgbuild in build script
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Docker on macOS
+        uses: douglascamata/setup-docker-macos-action@v1-alpha
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - run: python release.py --version 3.0.0
+
+      - name: Check if an installer file is present
+        run: |
+          if [ -n "$(ls -A macOS-x64/target/pkg/ 2>/dev/null)" ]; then 
+            echo "Installer is present"; 
+          else 
+            echo "Installer is missing" && exit 1; 
+          fi
