@@ -116,17 +116,17 @@ copyDarwinDirectory(){
 }
 
 copyBuildDirectory() {
-    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
-    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/postinstall"
 
-    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
-    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
     chmod -R 755 "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
 
-    sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
-    sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
-    sed -i -e 's/__SCRIPTPATH__/'${SCRIPTPATH}'/g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__VERSION__#'${VERSION}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__PRODUCT__#'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
+    sed -i -e 's#__SCRIPTPATH__#'${SCRIPTPATH}'#g' "${TARGET_DIRECTORY}/darwin/Distribution"
 
     sed -i -e 's/__VERSION__/'${VERSION}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
     sed -i -e 's/__PRODUCT__/'${PRODUCT}'/g' "${TARGET_DIRECTORY}/darwin/scripts/preinstall"
@@ -147,7 +147,7 @@ copyBuildDirectory() {
     chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     
     #Changes the script dir variable to the target path. This used to start the docker compose later.
-    sed -i -e 's/__SCRIPT_DIR__/'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
+    sed -i -e 's#__SCRIPT_DIR__#'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
     
     rm -rf "${TARGET_DIRECTORY}/package"
     mkdir -p "${TARGET_DIRECTORY}/package"
