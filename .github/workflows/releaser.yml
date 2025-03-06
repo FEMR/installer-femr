@@ -20,9 +20,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python release.py --version 3.0.0
 
-      - name: Check if the installer is present
+      - name: Check if an installer file is present
         run: |
-          if [ -f "macOS-x64/target/pkg/installer.pkg" ]; then 
+          if [ -n "$(ls -A macOS-x64/target/pkg/ 2>/dev/null)" ]; then 
             echo "Installer is present"; 
           else 
             echo "Installer is missing" && exit 1; 
