@@ -8,9 +8,11 @@ on:
 jobs:
   release:
     name: Run release.py
-    runs-on: macos-latest
+    runs-on: macos-13
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Docker on macOS
+        uses: douglascamata/setup-docker-macos-action@v1-alpha
       - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
