@@ -12,7 +12,7 @@ TIME=`date +%H:%M:%S`
 LOG_PREFIX="[$DATE $TIME]"
 SQL_CONTAINER="docker.io/library/mysql:9.1.0"
 FEMR_CONTAINER="teamfemrdev/teamfemr:latest"
-DNS_CONTATINER="strm/dnsmasq:latest"
+DNS_CONTAINER="strm/dnsmasq:latest"
 
 function printSignature() {
   cat "$SCRIPTPATH/utils/ascii_art.txt"
@@ -99,11 +99,11 @@ pull_and_save_docker_images() {
     log_info "Pulling docker images... If this fails, make sure Docker is running."
     docker pull $SQL_CONTAINER
     docker pull $FEMR_CONTAINER
-    docker pull $DNS_CONTATINER
+    docker pull $DNS_CONTAINER
     log_info "Saving docker images..."
     docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:9.1.0.tar"
     docker save $FEMR_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/femr.tar"
-    docker save $DNS_CONTATINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
+    docker save $DNS_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
     log_info "Completed moving docker images"
 }
 
@@ -208,17 +208,6 @@ function createUninstaller(){
     sed -i -e "s/__PRODUCT__/${PRODUCT}/g" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/uninstall.sh"
 }
 
-# function compileLoginScript(){
-#     echo "Compiling login script begin"
-#     PARENTSCRIPTPATH=$(dirname $SCRIPTPATH)
-#     pyinstaller --onefile --clean --hidden-import PySimpleGui "${SCRIPTPATH}/darwin/Resources/login.py"
-#     mv -f -v "${PARENTSCRIPTPATH}/dist/login" "${TARGET_DIRECTORY}/darwin/scripts"
-#     rm -rf dist/
-#     rm -rf build/
-#     rm -f login.spec
-
-# }
-
 #Pre-requisites
 command -v mvn -v >/dev/null 2>&1 || {
     log_warn "Apache Maven was not found. Please install Maven first."
@@ -231,10 +220,6 @@ command -v ballerina >/dev/null 2>&1 || {
 
 #Main script
 log_info "Installer generating process started."
-log_info "Script path is: $SCRIPTPATH"
-log_info "Target directory is: $TARGET_DIRECTORY"
-log_info "Product is: $PRODUCT"
-log_info "Version is: $VERSION"
 
 copyDarwinDirectory
 copyBuildDirectory
