@@ -100,13 +100,10 @@ pull_and_save_docker_images() {
     docker pull $SQL_CONTAINER
     docker pull $FEMR_CONTAINER
     docker pull $DNS_CONTATINER
-    log_info "Saving docker images:"
+    log_info "Saving docker images..."
     docker save $SQL_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/mysql:9.1.0.tar"
-    log_info "Saved SQL_CONTAINER: $SQL_CONTAINER"
     docker save $FEMR_CONTAINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/femr.tar"
-    log_info "Saved FEMR_CONTAINER: $FEMR_CONTAINER"
     docker save $DNS_CONTATINER > ${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}/dnsmasq.tar"
-    log_info "Saved DNS_CONTAINER: $DNS_CONTATINER"
     log_info "Completed moving docker images"
 }
 
@@ -234,17 +231,12 @@ command -v ballerina >/dev/null 2>&1 || {
 
 #Main script
 log_info "Installer generating process started."
-log_info "Current directory: $(pwd)"
-log_info "Script directory: $SCRIPTPATH"
-log_info "Target directory: $TARGET_DIRECTORY"
 
 copyDarwinDirectory
 copyBuildDirectory
 pull_and_save_docker_images
 createUninstaller
 createInstaller
-log_info "Listing current directory contents:"
-ls $TARGET_DIRECTORY/pkg
 
 log_info "Installer generating process finished"
 exit 0
