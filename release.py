@@ -18,17 +18,14 @@ def main():
 
     s3 = boto3.client('s3')
 
-    # Print the output of 'ls' command
-    subprocess.run(['ls', './macOS-x64/target/pkg'], check=True)
-    '''
+    print('Uploading macOS installer to S3. This may take a while...')
+
     s3.upload_file(
         f'./macOS-x64/target/pkg/femr-macos-installer-x64-{args.version}.pkg', 
         BUCKET_NAME, 
-        f'{args.version}/femr-x64-{args.version}.pkg'
+        f'macos/{args.version}/femr-x64-{args.version}.pkg'
     )
-    '''
 
-    
 if __name__ == "__main__":
     main()
 

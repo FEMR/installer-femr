@@ -146,9 +146,9 @@ copyBuildDirectory() {
     cp -a "$SCRIPTPATH"/application/. "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     
-    #Changes the script dir variable to the target path. This used to start the docker compose later.
-    sed -i -e 's#__SCRIPT_DIR__#'${TARGET_DIRECTORY}'/darwinpkg/Library/'${PRODUCT}'/'${VERSION}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
-    
+    #Sets the script_dir variable that's located in the postinstall script.
+    sed -i -e 's#__SCRIPT_DIR__#''/var/'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
+
     rm -rf "${TARGET_DIRECTORY}/package"
     mkdir -p "${TARGET_DIRECTORY}/package"
     chmod -R 755 "${TARGET_DIRECTORY}/package"
