@@ -18,6 +18,9 @@ jobs:
           cache: "pip"
       - run: pip install -r requirements.txt
       - run: python release.py --version ${{ github.event.client_payload.version }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Check if an installer file is present
         run: |

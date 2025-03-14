@@ -16,7 +16,16 @@ def main():
     # build the mac installer
     subprocess.run(['./macOS-x64/build-macos-x64.sh', 'femr', args.version], input=b'N', check=True)
 
-    s3 = boto3.client('s3')
+    aws_access_key = os.getenv('AWS_ACCESS_KEY_ID')
+    aws_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+    aws_region = 'us-east-2'
+
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=aws_access_key,
+        aws_secret_access_key=aws_secret_key,
+        region_name=aws_region
+    )
 
     print('Uploading macOS installer to S3. This may take a while...')
 
