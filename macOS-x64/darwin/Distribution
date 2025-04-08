@@ -12,7 +12,7 @@
     <installation-check script="installCheck();"/>
     <script>
 function installCheck() {
-    my.result.title = system.run('/bin/zsh', '-c', 'cd __SCRIPTPATH__; say $(pwd)')
+    my.result.title = system.run('/bin/zsh', '-c', 'cd __SCRIPTPATH__')
     my.result.type = 'Warning';
     my.result.message = 'Yeet';
     return false;
