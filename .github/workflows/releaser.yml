@@ -3,12 +3,23 @@ name: Push Installer to s3
 on:
   repository_dispatch:
     types: [generate-installer]
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Release version"
+        required: true
+        default: "0.0.0"
 
 jobs:
   release:
     name: Run release.py
     runs-on: macos-13 # Have to use macos runner due to the use of pkgbuild in build script
     steps:
+      - name: Set Release Version
+        id: set_version
+        run: |
+          VERSION="${{ github.event.client_payload.release || github.event.inputs.release }}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
       - name: Setup Docker on macOS
         uses: douglascamata/setup-docker-macos-action@v1-alpha
@@ -17,7 +28,7 @@ jobs:
           python-version: "3.10"
           cache: "pip"
       - run: pip install -r requirements.txt
-      - run: python release.py --version ${{ github.event.client_payload.release }}
+      - run: python release.py --version ${{ steps.set_version.outputs.version }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
