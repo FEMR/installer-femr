@@ -7,6 +7,7 @@ SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 TARGET_DIRECTORY="$SCRIPTPATH/target"
 PRODUCT=${1}
 VERSION=${2}
+ARCH=${3}
 DATE=`date +%Y-%m-%d`
 TIME=`date +%H:%M:%S`
 LOG_PREFIX="[$DATE $TIME]"
@@ -21,13 +22,13 @@ function printSignature() {
 
 function printUsage() {
   echo -e "\033[1mUsage:\033[0m"
-  echo "$0 [APPLICATION_NAME] [APPLICATION_VERSION]"
+  echo "$0 [APPLICATION_NAME] [APPLICATION_VERSION] [ARCHITECTURE]"
   echo
   echo -e "\033[1mOptions:\033[0m"
   echo "  -h (--help)"
   echo
-  echo -e "\033[1mExample::\033[0m"
-  echo "$0 wso2am 2.6.0"
+  echo -e "\033[1mExample:\033[0m"
+  echo "$0 femr 2.6.0 1"
 
 }
 
@@ -54,6 +55,18 @@ else
     echo
     printUsage
     exit 1
+fi
+if [[ ! "$3" =~ ^[12]$ ]]; then
+    echo "Please enter a valid MacOS architecture (1: Intel, 2: Arm)"
+    echo
+    printUsage
+    exit 1
+else
+    if [[ "$3" == "1" ]]; then
+        echo "MacOS Architecture : Intel"
+    else
+        echo "MacOS Architecture : Apple Silicon"
+    fi
 fi
 
 #Functions
@@ -145,7 +158,13 @@ copyBuildDirectory() {
     mkdir -p "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     cp -a "$SCRIPTPATH"/application/. "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
     chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
-    
+
+    # If Intel (1), replace docker-compose.yml with Intel-specific version
+    if [[ "${ARCH}" == "1" ]]; then
+        rm -f "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/docker-compose.yml"
+        cp "$SCRIPTPATH/docker-compose-intel.yml" "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/docker-compose.yml"
+    fi
+
     #Sets the script_dir variable that's located in the postinstall script.
     sed -i -e 's#__SCRIPT_DIR__#''/var/'${PRODUCT}'#g' "${TARGET_DIRECTORY}/darwinpkg/Library/${PRODUCT}/${VERSION}/start-femr"
 
@@ -191,7 +210,16 @@ function signProduct() {
 function createInstaller() {
     log_info "Application installer generation process started.(3 Steps)"
     buildPackage
-    buildProduct ${PRODUCT}-macos-installer-x64-${VERSION}.pkg
+    # If Intel, name differently
+    if [ "$ARCH" == "1" ]; then
+        ARCH_NAME="intel"
+    elif [ "$ARCH" == "2" ]; then
+        ARCH_NAME="arm"
+    else
+        echo "Unknown ARCH: $ARCH"
+        ARCH_NAME=""
+    fi
+    buildProduct ${PRODUCT}-macos-installer-${ARCH_NAME}-${VERSION}.pkg
     while true; do
         read -p "Do you wish to sign the installer (You should have Apple Developer Certificate) [y/N]?" answer
         [[ $answer == "y" || $answer == "Y" ]] && FLAG=true && break

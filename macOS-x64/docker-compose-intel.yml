@@ -1,6 +1,6 @@
 services:
   db:
-    platform: linux/arm64
+    platform: linux/amd64
     image: mysql:9.1.0
     restart: always
     environment:
@@ -24,7 +24,7 @@ services:
       timeout: 5s
 
   femr:
-    platform: linux/arm64/v8
+    platform: linux/amd64/v8
     image: teamfemrdev/teamfemr:latest
     links:
       - db:mysql
