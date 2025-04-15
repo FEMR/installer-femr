@@ -24,7 +24,7 @@ services:
       timeout: 5s
 
   femr:
-    platform: linux/amd64/v8
+    platform: linux/amd64
     image: teamfemrdev/teamfemr:latest
     links:
       - db:mysql
