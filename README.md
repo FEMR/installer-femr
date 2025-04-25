@@ -27,8 +27,11 @@ Acknowledgements: https://medium.com/swlh/the-easiest-way-to-build-macos-install
 To compile the files into a .pkg installer:
 
 ```
-./macOS-x64/build-macos-x64.sh [APPLICATION_NAME] [APPLICATION_VERSION]
+./macOS-x64/build-macos-x64.sh [APPLICATION_NAME] [APPLICATION_VERSION] [ARCHITECTURE]
 ```
+
+Where the architecture is specified by either a 1 or 2 meaning intel or arm respectively.
+For example, this is how you build an intel mac installer: ./macOS-x64/build-macos-x64.sh femr 1.0.0 1
 
 This will create the .pkg installer under the `/macOS-x64/target/pkg` directory. The installer can now be double clicked inside Finder and the installer will run through the necessary steps to install the fEMR software.
 
@@ -41,23 +44,26 @@ Once the installer has finished running through all the steps and installing the
 Creates a Windows installer for the fEMR application from advanced installer.
 
 ### File Structure
+
 - `./newFemer` contatins all of the files neccessary to build the installer.
 - `./femrInstall-cache` contains all the installer cache information
 
 ### Building the installer via advanced installer
-To compile the installer via advanced installer, create a new project with the file location as the windowsInstaller file location. Add all of the files in ./newFemr to the applications folder in the target computer. Add the docker desktop installation to the prerequisite condition for instillation. Add the cache to the project then build the project as a single exe file with the documents included. 
+
+To compile the installer via advanced installer, create a new project with the file location as the windowsInstaller file location. Add all of the files in ./newFemr to the applications folder in the target computer. Add the docker desktop installation to the prerequisite condition for instillation. Add the cache to the project then build the project as a single exe file with the documents included.
 
 ## Other Repositories
 
-- [super-femr](https://github.com/CPSECapstone/super-femr) - The latest version of off-chain femr
+- [femr](https://github.com/FEMR/femr) - The latest version of off-chain femr
 - [AWS](https://github.com/fEMR/fibula-aws) - AWS code for CI pipeline and API
 - [Frontend](https://github.com/CPSECapstone/self-enrollment-frontend) - Frontend React code for self-enrollment webpage
 
 ## Uploading a release
 
-- Make sure that an up-to-date femr docker image has been pushed to Dockerhub from the super-femr repository.
-- Make sure your AWS configuration file is configured to write to the release S3 bucket.
-- Run release.py (if necessary, you can install the necessary requirements from the requirements.txt at the top level of this repository)
+- Installer packages are automatically released when a Github release is made in the main fEMR repo. This is done through Github Actions
+  - The main repo runs a workflow dispatch to the releaser.yml workflow in this repo. From there it grabs the AWS credentials from the Github Actions secrets and uploads the installers.
+  - The main script is run twice, once for intel and once for arm. Windows installer automation is not created yet.
+- Running the script manually (on your machine) requires you to have the aws credentials added to your environment.
 
 # Notes for DNS
 

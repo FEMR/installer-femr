@@ -18,7 +18,7 @@ services:
       - db-data:/var/lib/mysql
 
   femr:
-    platform: linux/arm64/v8
+    platform: linux/amd64
     image: teamfemrdev/teamfemr:latest
     links:
       - db:mysql
