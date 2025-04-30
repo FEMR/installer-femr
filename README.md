@@ -4,7 +4,7 @@ Creates installers for the fEMR application for Mac and Windows systems.
 
 ## File Structure
 
-- `macOS-x64` contains the files for creating the Mac installer.
+- `macInstaller` contains the files for creating the Mac installer.
 - `windowsInstaller` contains files for creating the Windows installer.
 - `release.py` uploads all generated artifacts to S3 to release to users.
 
@@ -27,13 +27,13 @@ Acknowledgements: https://medium.com/swlh/the-easiest-way-to-build-macos-install
 To compile the files into a .pkg installer:
 
 ```
-./macOS-x64/build-macos-x64.sh [APPLICATION_NAME] [APPLICATION_VERSION] [ARCHITECTURE]
+./macInstaller/build-macInstaller.sh [APPLICATION_NAME] [APPLICATION_VERSION] [ARCHITECTURE]
 ```
 
 Where the architecture is specified by either a 1 or 2 meaning intel or arm respectively.
-For example, this is how you build an intel mac installer: ./macOS-x64/build-macos-x64.sh femr 1.0.0 1
+For example, this is how you build an intel mac installer: ./macInstaller/build-macInstaller.sh femr 1.0.0 1
 
-This will create the .pkg installer under the `/macOS-x64/target/pkg` directory. The installer can now be double clicked inside Finder and the installer will run through the necessary steps to install the fEMR software.
+This will create the .pkg installer under the `/macInstaller/target/pkg` directory. The installer can now be double clicked inside Finder and the installer will run through the necessary steps to install the fEMR software.
 
 ### Running the Application
 

@@ -35,7 +35,7 @@ jobs:
 
       - name: Check if an installer file is present
         run: |
-          if [ -n "$(ls -A macOS-x64/target/pkg/ 2>/dev/null)" ]; then 
+          if [ -n "$(ls -A macInstaller/target/pkg/ 2>/dev/null)" ]; then 
             echo "Installer successfully generated. Check s3 bucket to verify."; 
           else 
             echo "Installer is missing." && exit 1; 
