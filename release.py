@@ -33,7 +33,7 @@ def main():
     s3.upload_file(
         f'./macInstaller/target/pkg/femr-macos-installer-intel-{args.version}.pkg', 
         BUCKET_NAME, 
-        f'macos/intel/{args.version}/femr-x64-{args.version}.pkg'
+        f'macos/intel/{args.version}/femr-intel-{args.version}.pkg'
     )
 
     print("Building Apple Silicon Mac installer.")
@@ -45,7 +45,7 @@ def main():
     s3.upload_file(
         f'./macInstaller/target/pkg/femr-macos-installer-arm-{args.version}.pkg', 
         BUCKET_NAME, 
-        f'macos/arm/{args.version}/femr-x64-{args.version}.pkg'
+        f'macos/arm/{args.version}/femr-arm-{args.version}.pkg'
     )
 
 if __name__ == "__main__":
