@@ -2,6 +2,7 @@
 
 
 # find ../../../ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+arch=$(uname -m)
 set -e
 open -g -j -a Docker.app
 if  [[ $arch == arm* ]]; then
