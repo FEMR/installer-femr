@@ -50,7 +50,7 @@ Creates a Windows installer for the fEMR application from advanced installer.
 
 ### Building the installer via advanced installer
 
-To compile the installer via advanced installer, create a new project with the file location as the windowsInstaller file location. Add all of the files in ./newFemr to the applications folder in the target computer. Add the docker desktop installation to the prerequisite condition for instillation. Add the cache to the project then build the project as a single exe file with the documents included.
+To compile the installer via advanced installer, create a new project with the file location as the windowsInstaller file location. Add all of the files in ./newFemr to the applications folder in the target computer. Press build button on advanced installer to build the EXE. After a successful build, press the output folder button on the same tool bar as build. Run the EXE located in the output folder. Once wizard has finished, run the powershell (.ps1) script in the new installation folder created by the EXE. The powershell script will open docker and run docker-compose up, you can then navigate to localhost:9000 in your preferred browser to run fEMR.
 
 ## Other Repositories
 
