@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="20.2.1" version="22.6" PreviousModules="professional" Modules="enterprise" RootPath="." Language="en" Id="{56DBCB2A-B73F-4BCB-AE84-6587F5A2ECE4}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="20.2.1" version="22.7" PreviousModules="professional" Modules="enterprise" RootPath="." Language="en" Id="{56DBCB2A-B73F-4BCB-AE84-6587F5A2ECE4}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="ActSyncAppComponent;CPLAppletComponent;AutorunComponent;GameUxComponent;SilverlightSlnComponent;SharePointSlnComponent"/>
   </COMPONENT>
@@ -40,6 +40,8 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
@@ -48,6 +50,8 @@
     <ROW Component="APPDIR" ComponentId="{095E722A-8AD6-4DBB-8FBE-B9B183829A52}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="ProductInformation" ComponentId="{F7D90F57-1536-4DFD-8D48-18FA396745BB}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="dockercompose.yml" ComponentId="{EE4968A2-9F23-44C1-8C36-96586C722256}" Directory_="APPDIR" Attributes="0" KeyPath="Dockerfile" Type="0"/>
+    <ROW Component="femr.ps1" ComponentId="{D20682C6-8FD4-4469-AE97-6FE35E90C10B}" Directory_="ProgramMenuFolder" Attributes="0" KeyPath="femr.ps1_3" Type="0"/>
+    <ROW Component="femr.ps1_1" ComponentId="{A3898CAF-E8CD-4D65-9A75-63505B2A0469}" Directory_="DesktopFolder" Attributes="0" KeyPath="femr.ps1_2" Type="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -57,6 +61,8 @@
     <ROW File="Dockerfile" Component_="dockercompose.yml" FileName="DOCKER~1|Dockerfile" Attributes="0" SourcePath="Dockerfile" SelfReg="false"/>
     <ROW File="femr.ps1" Component_="dockercompose.yml" FileName="femr.ps1" Attributes="0" SourcePath="femr.ps1" SelfReg="false"/>
     <ROW File="dockercompose.yml" Component_="dockercompose.yml" FileName="DOCKER~1.YML|docker-compose.yml" Attributes="0" SourcePath="docker-compose.yml" SelfReg="false"/>
+    <ROW File="femr.ps1_2" Component_="femr.ps1_1" FileName="femr.ps1" Attributes="0" SourcePath="femr.ps1" SelfReg="false"/>
+    <ROW File="femr.ps1_3" Component_="femr.ps1" FileName="femr.ps1" Attributes="0" SourcePath="femr.ps1" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -275,6 +281,8 @@
     <ROW Feature_="MainFeature" Component_="dockercompose.yml"/>
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="AI_CustomARPName"/>
+    <ROW Feature_="MainFeature" Component_="femr.ps1_1"/>
+    <ROW Feature_="MainFeature" Component_="femr.ps1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
