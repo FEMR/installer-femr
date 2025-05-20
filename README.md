@@ -68,3 +68,7 @@ To compile the installer via advanced installer, download and open advanced inst
 # Notes for DNS
 
 There is a DNS server as a package in the docker compose. This DNS server is configured to redirect the femr.net to 192.168.1.2 This can be changed by editing the application/dns.conf. Details on how users can configure their routers to use the DNS can be found here: https://docs.google.com/document/d/1opcGO7SUYSOtQPjx1CUQ2PdLrzKxleHNVE4bLMBpUkE/edit?usp=sharing
+
+# Advanced Installer
+
+We are utilizing a professional license provided graciously by Advanced Installer for free to create our Windows Installer. Visit their site here [Advanced Installer](https://www.advancedinstaller.com/)
