@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Setup Instructions</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #ffffff;
+      color: #222;
+      padding: 20px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #005a9c;
+    }
+    code, pre {
+      background: #f0f0f0;
+      padding: 5px;
+      border-radius: 4px;
+    }
+    ol li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome!</h1>
+  <p>Thank you for installing the application. To finish setting everything up, please follow the simple steps below.</p>
+
+  <h2>Step 1: Open Docker</h2>
+  <ol>
+    <li>Find the <strong>Docker Desktop</strong> icon on your Desktop.</li>
+    <li><strong>Right-click</strong> the icon and choose <strong>Run as administrator</strong>.</li>
+    <li>If you see a pop-up that asks, “Do you want to allow this app to make changes to your device?”, click <strong>Yes</strong>.</li>
+    <li>Wait for Docker to fully start before moving on.</li>
+  </ol>
+
+  <h2>Step 2: Run the Setup Script</h2>
+  <ol>
+    <li>Find the file called <strong>femr.ps1</strong> on your Desktop or in the Start Menu.</li>
+    <li><strong>Right-click</strong> on <strong>femr.ps1</strong>.</li>
+    <li>Select <strong>Run with PowerShell</strong>.</li>
+    <li>If asked to confirm anything, click <strong>Yes</strong>.</li>
+  </ol>
+
+  <h2>Having Trouble?</h2>
+  <p>If you see a message that says scripts are blocked:</p>
+  <ol>
+    <li>Right-click the Start Menu and choose <strong>Windows PowerShell (Admin)</strong>.</li>
+    <li>Copy and paste this command, then press <strong>Enter</strong>:</li>
+    <pre><code>Set-ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+    <li>When asked, type <code>Y</code> and press <strong>Enter</strong>.</li>
+    <li>Close the window, then try running <strong>femr.ps1</strong> again.</li>
+  </ol>
+
+</body>
+</html>
