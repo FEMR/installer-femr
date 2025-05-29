@@ -1,3 +1,4 @@
 .DS_Store
 target/
-venv
+windowsInstaller/femrInstaller2-SetupFiles
+windowsInstaller/femrInstaller2-cache
