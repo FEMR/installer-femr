@@ -25,3 +25,5 @@ if  [[ $arch == arm* ]]; then
 else
     echo "not arm"
 fi
+
+open ./resources/conclusion.html
