@@ -7,7 +7,7 @@ services:
       MYSQL_DATABASE: "femr_db"
       MYSQL_USER: "femr"
       MYSQL_PASSWORD: "password"
-      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_RANDOM_ROOT_PASSWORD: "password"
     ports:
       - "3306:3306"
     command:
@@ -16,29 +16,36 @@ services:
       - "3306"
     volumes:
       - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 5s
 
   femr:
     platform: linux/amd64
     image: teamfemrdev/teamfemr:latest
     links:
       - db:mysql
-    depends_on:
+    depends_on: 
       db:
         condition: service_healthy
     tty: true
     restart: on-failure:10
     ports:
-      - "9000:9000"
+      - '9000:9000'
     expose:
       - "9000"
+
     environment:
       DB_URL: 'jdbc:mysql://db:3306/femr_db?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true'
       DB_USER: 'femr'
       DB_PASS: 'password'
       IS_DOCKER: 'true'
-    volumes:
-      - ./femr/conf:/home/femrapp/conf
 
+    volumes:
+      - ./femr/conf:/usr/src/app/conf
 
 volumes:
   db-data:
