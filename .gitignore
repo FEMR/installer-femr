@@ -1,4 +1,6 @@
 .DS_Store
 target/
+output/
+*.tar
 windowsInstaller/femrInstaller2-SetupFiles
 windowsInstaller/femrInstaller2-cache

@@ -1,0 +1,51 @@
+services:
+
+  db:
+    image: mysql:9.1.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'femr_db'
+      MYSQL_USER: 'femr'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    command:
+      - "mysqld"
+      - "--log-bin-trust-function-creators=1"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  femr:
+    image: teamfemrdev/teamfemr:latest
+    links: 
+      - db:mysql
+    depends_on: 
+      db:
+        condition: service_healthy
+    tty: true
+    restart: on-failure:10
+    ports:
+      - '9000:9000'
+    entrypoint: ["/bin/bash", "-c"]
+    command: ["rm -f /opt/bin/femr/RUNNING_PID && /opt/bin/femr/bin/femr"]
+    environment:
+      DB_URL: 'jdbc:mysql://db:3306/femr_db?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true'
+      DB_USER: 'femr'
+      DB_PASS: 'password'
+      IS_DOCKER: 'true'
+      PLAY_EVOLUTIONS_AUTO_APPLY: 'true'
+      PLAY_EVOLUTIONS_AUTO_APPLY_DOWNS: 'false'
+
+    volumes:
+      - ./speedtest:/usr/src/speedtest
+
+
+volumes:
+  db-data:
