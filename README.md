@@ -50,7 +50,15 @@ Creates a Windows installer for the fEMR application from advanced installer.
 
 ### Building the installer via advanced installer
 
-To compile the installer via advanced installer, download and open advanced installer. Press the open new folder button in the top toolbar and open the folder .\installer-femr-master/windowsInstaller and open the femrInstaller2.aip file. In the advanced installer file view, delete the docker-compose .YML file, femr .ps1 file, and the Dockerfile. Re-add these three files after removing for advanced installer to correctly identify them. Your file view in advanced installer will now contain the femrInstaller2.aip , docker-compose , Dockerfile , and femr.ps1 files. Press the build button on advanced installer to build the EXE. After a successful build, press the output folder button on the same tool bar as the build button. Run the EXE located in the output folder. Once wizard has finished, run the powershell (.ps1) script in the new installation folder created by the EXE. The powershell script will open docker and run docker-compose up, you can then navigate to localhost:9000 in your preferred browser to run fEMR.
+To compile the installer via advanced installer:
+1. Download and open advanced installer.
+2. Press the open new folder button in the top toolbar and open the folder .\installer-femr-master/windowsInstaller and open the femrInstaller2.aip file.
+3. In the advanced installer file view, delete the docker-compose .YML file, femr .ps1 file, and the Dockerfile.
+4. Re-add these three files after removing for advanced installer to correctly identify them.
+   > Your file view in advanced installer will now contain the femrInstaller2.aip , docker-compose , Dockerfile , and femr.ps1 files.
+6. Press the build button on advanced installer to build the EXE. After a successful build, press the output folder button on the same tool bar as the build button.
+7. Run the EXE located in the output folder.
+   > Once wizard has finished, run the powershell (.ps1) script in the new installation folder created by the EXE. The powershell script will open docker and run docker-compose up, you can then navigate to localhost:9000 in your preferred browser to run fEMR.
 
 ## Other Repositories
 
